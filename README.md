@@ -25,7 +25,7 @@ python3 managae.py install -r reqiurements.txt
 
 # Migrate db and create superuser
 python3 manage.py migrate
-django-admin createsuperuser
+python3 managae.py createsuperuser
 
 # Run it
 python3 manage.py runserver
