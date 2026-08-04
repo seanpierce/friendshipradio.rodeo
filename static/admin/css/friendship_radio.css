@@ -1,0 +1,15 @@
+:root,
+html[data-theme="light"],
+html[data-theme="dark"] {
+    --primary: #333;
+    --secondary: #333;
+    --accent: #fff;
+    --header-color: #fff;
+    --header-branding-color: #fff;
+    --header-bg: #333;
+    --breadcrumbs-bg: #333;
+    --button-bg: #333;
+    --button-hover-bg: #333;
+    --default-button-bg: #333;
+    --default-button-hover-bg: #333;
+}

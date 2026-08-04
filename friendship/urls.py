@@ -19,6 +19,8 @@ from django.urls import path
 
 from . import views
 
+admin.site.site_header = 'Friendship Radio Administration'
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
