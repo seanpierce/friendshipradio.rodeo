@@ -1,0 +1,488 @@
+/* === RESET & BASE STYLES === */
+@font-face {
+    font-family: 'Old London';
+    src: url('fonts/old-london-regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Improves loading performance */
+}
+
+@import url(https://db.onlinewebfonts.com/c/39fe060422750c672f65c87ea433856a?family=OldLondonAlternate);
+@font-face {
+    font-family: "OldLondonAlternate";
+    src: url("https://db.onlinewebfonts.com/t/39fe060422750c672f65c87ea433856a.eot");
+    src: url("https://db.onlinewebfonts.com/t/39fe060422750c672f65c87ea433856a.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/39fe060422750c672f65c87ea433856a.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/39fe060422750c672f65c87ea433856a.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/39fe060422750c672f65c87ea433856a.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/39fe060422750c672f65c87ea433856a.svg#OldLondonAlternate")format("svg");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #f8f8ff; /* ghost white */
+    color: #000;         /* black regular text */
+    min-height: 100vh;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "OldLondonAlternate";
+    color: #ff6347; /* tomato */
+}
+
+a {
+    color: #ff6347; /* tomato */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+em {
+    color: green;
+    font-style: italic;
+    font-family: "OldLondonAlternate";
+
+}
+
+/* === ANIMATED HEADER TEXT === */
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.animated-title {
+    font-family: "OldLondonAlternate";
+    font-size: 3em;
+    font-weight: normal;
+    color: #ff6347;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* More spacing works well with gothic fonts */
+}
+
+.animated-title span {
+    display: inline-block;
+    animation: bobAndRock 2s ease-in-out infinite;
+}
+
+/* Stagger each letter's animation delay so they move independently */
+.animated-title span:nth-child(1)    { animation-delay: 0.00s; }
+.animated-title span:nth-child(2)    { animation-delay: 0.12s; }
+.animated-title span:nth-child(3)    { animation-delay: 0.24s; }
+.animated-title span:nth-child(4)    { animation-delay: 0.36s; }
+.animated-title span:nth-child(5)    { animation-delay: 0.48s; }
+.animated-title span:nth-child(6)    { animation-delay: 0.60s; }
+.animated-title span:nth-child(7)    { animation-delay: 0.72s; }
+.animated-title span:nth-child(8)    { animation-delay: 0.84s; }
+.animated-title span:nth-child(9)    { animation-delay: 0.96s; }
+.animated-title span:nth-child(10)   { animation-delay: 1.08s; }
+.animated-title span:nth-child(11)   { animation-delay: 1.20s; }
+.animated-title span:nth-child(12)   { animation-delay: 1.32s; }
+.animated-title span:nth-child(13)   { animation-delay: 1.44s; }
+.animated-title span:nth-child(14)   { animation-delay: 1.56s; }
+.animated-title span:nth-child(15)   { animation-delay: 1.68s; }
+.animated-title span:nth-child(16)   { animation-delay: 1.80s; }
+.animated-title span:nth-child(17)   { animation-delay: 1.92s; }
+.animated-title span:nth-child(18)   { animation-delay: 2.04s; }
+.animated-title span:nth-child(19)   { animation-delay: 2.16s; }
+.animated-title span:nth-child(20)   { animation-delay: 2.28s; }
+.animated-title span:nth-child(21)   { animation-delay: 2.40s; }
+
+@keyframes bobAndRock {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-12px) rotate(-8deg);
+    }
+    50% {
+        transform: translateY(-4px) rotate(4deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(-3deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* === HAMBURGER MENU === */
+.hamburger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1002; /* Higher than header (1000) */
+    pointer-events: auto;
+}
+
+.hamburger-btn {
+    background: none;
+    border: 2px solid #ff6347;
+    color: #ff6347;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.hamburger-btn:hover {
+    background: #ff6347;
+    color: #f8f8ff;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -350px;
+    width: 300px;
+    height: 100vh;
+    background: #f8f8ff;
+    z-index: 999;
+    transition: left 0.3s ease;
+    padding: 100px 30px 30px;
+    overflow-y: auto;
+    border-right: 2px solid #ff6347;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar h2 {
+    color: #ff6347;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.sidebar p {
+    color: #000;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.sidebar a {
+    color: #ff6347;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* === MAIN CONTAINER === */
+.main-container {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+/* === AUDIO PLAYER === */
+.fr-player,
+.fr-player *,
+.fr-player *::before,
+.fr-player *::after {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.fr-player {
+    display: inline-flex;
+    flex-direction: column;
+    width: 60%;
+    max-width: 400px;
+    border: 2px solid #999;
+    padding: 20px 18px 18px;
+    background: #f8f8ff;
+    color: #000;
+    margin: 40px 0;
+}
+
+.fr-player__name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff6347;
+    margin-bottom: 3px;
+}
+
+.fr-player__sub {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 18px;
+}
+
+.fr-player__status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 16px;
+    font-size: 11px;
+    color: #666;
+}
+
+.fr-player__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #444;
+    flex-shrink: 0;
+    transition: background 0.3s;
+}
+
+.fr-player--playing .fr-player__dot {
+    background: red;
+    animation: fr-blink 1.4s infinite;
+}
+
+@keyframes fr-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.fr-player__controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.fr-player__btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid red;
+    background: #f8f8ff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
+    padding: 0;
+}
+
+.fr-player__btn:hover {
+    background: red;
+}
+
+.fr-player__btn svg {
+    width: 16px;
+    height: 16px;
+    fill: red;
+    transition: fill 0.15s;
+    display: block;
+}
+
+.fr-player__btn:hover svg {
+    fill: #f8f8ff;
+}
+
+.fr-player__vol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fr-player__vol-label {
+    font-size: 10px;
+    color: #666;
+}
+
+.fr-player__vol-track {
+    position: relative;
+    height: 2px;
+    background: #ccc;
+    cursor: pointer;
+}
+
+.fr-player__vol-fill {
+    height: 100%;
+    background: #ff6347;
+    width: 80%;
+    pointer-events: none;
+}
+
+.fr-player__vol-range {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    top: -9px;
+    left: 0;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* === CHAT BOX PLACEHOLDER === */
+.chat-placeholder {
+    width: 60%;
+    max-width: 400px;
+    min-height: 300px;
+    border: 2px dashed #999;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+    background: #f8f8ff;
+}
+
+/* === SCROLL SPACER === */
+.scroll-spacer {
+    height: 100px;
+}
+
+/* === FOOTER MARQUEE  === */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    background: rgba(248, 248, 255, 0.9); /* slight transparency */
+    border-top: 2px solid #ff6347;
+    backdrop-filter: blur(5px); /* blurs content behind it */
+    -webkit-backdrop-filter: blur(5px); /* Safari support */
+}
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    height: 40px;
+}
+
+.marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+}
+
+.marquee {
+    color: #ff6347;
+    font-size: 16px;
+    font-family: "OldLondonAlternate";
+
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.main-container {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 40px);
+    padding-bottom: 50px;
+}
+
+/* === DONATE SECTION === */
+.donate-section {
+    text-align: center;
+    margin: 30px 0;
+    color: #000;
+    font-size: 14px;
+}
+
+.donate-section form {
+    display: inline-block;
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+    .fr-player {
+        width: 80%;
+    }
+
+    .chat-placeholder {
+        width: 80%;
+    }
+
+    .animated-title {
+        font-size: 18px; /* Smaller on mobile */
+        letter-spacing: 1px;
+    }
+
+    .header-container {
+        height: 60px; /* Reduced header height */
+    }
+
+    .hamburger-menu {
+        top: 15px;
+        left: 10px; /* More space from edge */
+        z-index: 1002;
+    }
+
+    .hamburger-btn {
+        font-size: 20px;
+        padding: 4px 10px;
+    }
+
+    .sidebar {
+        width: 250px;
+        padding: 80px 30px 30px; /* Less top padding */
+    }
+    
+    .sidebar-close {
+        top: 15px;
+        right: 20px;
+    }
+}

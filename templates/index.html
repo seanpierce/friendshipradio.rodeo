@@ -1,14 +1,101 @@
-<!doctype html>
+
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Friendship Radio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>friendship radio rodeo</title>
+    <link rel="shortcut icon" href="https://friendshipradio.rodeo/favicon_io/favicon.ico">
+    <meta name="description" content="Friendship Radio Rodeo coming soon... ">
+    <link rel="stylesheet" href="{% static 'assets/styles/index.css' %}">
+    <link href="https://db.onlinewebfonts.com/c/39fe060422750c672f65c87ea433856a?family=OldLondonAlternate" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <h1>Friendship Radio</h1>
-        <p>An internet radio station for good pals and their good pals.</p>
-    </main>
+    <!-- Animated Header - each letter in its own span for independent animation -->
+    <div class="header-container">
+        <h1 class="animated-title">
+            <span>F</span><span>R</span><span>I</span><span>E</span><span>N</span><span>D</span><span>S</span><span>H</span><span>I</span><span>P</span><span>&nbsp;</span><span>R</span><span>A</span><span>D</span><span>I</span><span>O</span><span>&nbsp;</span><span>R</span><span>O</span><span>D</span><span>E</span><span>O</span>
+        </h1>
+    </div>
+
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger-menu">
+        <button class="hamburger-btn" onclick="toggleSidebar()">🤠</button>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <h2>About</h2>
+        <p>Friendship Radio Rodeo is going to be an online radio station. Folks will be streaming live and sending in pre-records from all over the world.</p>
+        <p>For the time being, you will be listening to weird experiments admin is implementing in order to work out the kinks OR whatever our older brother, <a href="https://introtorhythm.com">Intro To Rhythm</a> is sending out into the world.</p>
+        <p>Another project of mine is <a href="https://flyerescape.dad">FLYER ESCAPE</a> - a source for live music and other community events in Oregon in the form of a website.</p>
+        <p>Check out <a href="http://flyermire.com/">Flyer Mire</a> and <a href="https://pantsonflyers.org/">Pants on Flyers</a>.</p>
+        <p>While I am at it - I will plug one more member of this family of underground things: <a href="http://www.freespiritnews.org/">Free Spirit News</a> "A harbinger of ancient truths and modern lies."</p>
+        <br>
+        <p><em>Friendly Note:</em> If you'd like to support this project, donations are welcome but never required! Community matters.</p>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Audio Player -->
+        <div class="fr-player" id="fr-player">
+            <div class="fr-player__name"><h2>Friendship Radio Rodeo</h2></div>
+            <div class="fr-player__sub">streaming [ˈstriːmɪŋ] occasionally [əˈkeɪʒ(ə)n(ə)li]</div>
+
+            <div class="fr-player__status">
+                <div class="fr-player__dot"></div>
+                <span id="fr-status">thanks for listening</span>
+            </div>
+
+            <div class="fr-player__controls">
+                <button class="fr-player__btn" id="fr-btn" aria-label="Play/Stop">
+                    <svg id="fr-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <div class="fr-player__vol">
+                    <div class="fr-player__vol-label"><h3>Volume</h3></div>
+                    <div class="fr-player__vol-track">
+                        <div class="fr-player__vol-fill" id="fr-fill"></div>
+                        <input class="fr-player__vol-range" type="range" id="fr-vol" min="0" max="100" value="80">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <audio id="fr-audio" preload="none"></audio>
+
+        <!-- Chat Box Placeholder -->
+        <div class="chat-placeholder">
+            [Chat box will be added here later]
+        </div>
+
+        <!-- Donate Section -->
+        <div class="donate-section">
+            <p>If you would like to donate to support Friendship Radio Rodeo, please do! If not, hey that's alright!</p>
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+                <input type="hidden" name="hosted_button_id" value="6WK8R2LLMW9HL" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+        </div>
+
+        <div class="scroll-spacer"></div>
+    </div>
+
+    <!-- Footer Marquee -->
+    <footer>
+        <div class="marquee-container">
+            <div class="marquee-inner">
+                <div class="marquee">
+                    friendship radio rodeo is in it's infancy! stay tuned as we keep growing...
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'assets/scripts/index.js' %}" defer></script>
 </body>
 </html>
