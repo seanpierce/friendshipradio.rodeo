@@ -1,25 +1,25 @@
 from django.contrib import admin
 
-from .models import About #, MarqueeText
+from .models import About, MarqueeText
 
-# #region MarqueeText
+#region MarqueeText
 
-# class MarqueeTextAdmin(admin.ModelAdmin):
-#     def has_add_permission(self, request):
-#         """
-#         Ensure only one record can be added.
-#         """
-#         return False if self.model.objects.count() > 0 else super().has_add_permission(request)
+class MarqueeTextAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        """
+        Ensure only one record can be added.
+        """
+        return False if self.model.objects.count() > 0 else super().has_add_permission(request)
     
-#     def has_delete_permission(self, request, obj=None):
-#         """
-#         Ensure record can not be deleted.
-#         """
-#         return False
+    def has_delete_permission(self, request, obj=None):
+        """
+        Ensure record can not be deleted.
+        """
+        return False
     
-# admin.site.register(MarqueeText, MarqueeTextAdmin)
+admin.site.register(MarqueeText, MarqueeTextAdmin)
 
-# # endregion
+# endregion
 
 #region About
 
