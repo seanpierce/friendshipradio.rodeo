@@ -28,15 +28,7 @@
 
     <!-- Sidebar Navigation -->
     <nav class="sidebar" id="sidebar">
-        <button class="sidebar-close" onclick="closeSidebar()">×</button>
-        <h2>About</h2>
-        <p>Friendship Radio Rodeo is going to be an online radio station. Folks will be streaming live and sending in pre-records from all over the world.</p>
-        <p>For the time being, you will be listening to weird experiments admin is implementing in order to work out the kinks OR whatever our older brother, <a href="https://introtorhythm.com">Intro To Rhythm</a> is sending out into the world.</p>
-        <p>Another project of mine is <a href="https://flyerescape.dad">FLYER ESCAPE</a> - a source for live music and other community events in Oregon in the form of a website.</p>
-        <p>Check out <a href="http://flyermire.com/">Flyer Mire</a> and <a href="https://pantsonflyers.org/">Pants on Flyers</a>.</p>
-        <p>While I am at it - I will plug one more member of this family of underground things: <a href="http://www.freespiritnews.org/">Free Spirit News</a> "A harbinger of ancient truths and modern lies."</p>
-        <br>
-        <p><em>Friendly Note:</em> If you'd like to support this project, donations are welcome but never required! Community matters.</p>
+        {{ about | safe }}
     </nav>
 
     <!-- Main Content -->
