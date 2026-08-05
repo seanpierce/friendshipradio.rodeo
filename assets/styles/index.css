@@ -51,6 +51,15 @@ a:hover {
     text-decoration: underline;
 }
 
+a.styled-link {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+a.styled-link:hover {
+    text-decoration: none;
+}
+
 em {
     color: green;
     font-style: italic;
