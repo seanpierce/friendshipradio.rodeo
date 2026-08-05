@@ -4,15 +4,6 @@
   --orange-lighter: color-mix(in oklab, var(--orange), white 10%);
 }
 
-/* === RESET & BASE STYLES === */
-@font-face {
-    font-family: 'Old London';
-    src: url('fonts/old-london-regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap; /* Improves loading performance */
-}
-
 @import url(https://db.onlinewebfonts.com/c/39fe060422750c672f65c87ea433856a?family=OldLondonAlternate);
 @font-face {
     font-family: "OldLondonAlternate";
