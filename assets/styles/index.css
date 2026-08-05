@@ -396,6 +396,11 @@ em {
     background: var(--off-white);
 }
 
+.paypal-donate-form {
+    display: inline-block;
+    margin-top: 20px;
+}
+
 /* === SCROLL SPACER === */
 .scroll-spacer {
     height: 100px;
