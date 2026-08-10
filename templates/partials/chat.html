@@ -1,0 +1,27 @@
+<div id="chat-container">
+    <div id="chat-content">
+        <!-- If logged in show messages and chat box -->
+        <div id="require-login">
+            <div id="chat-messages"></div>
+            <div id="chat-input-container">
+                <input type="text" 
+                    id="chat-input" 
+                    placeholder="Type your message..." 
+                    maxlength="200"
+                    onchange="sendMessageOnEnterKey(event)"
+                />
+                <button id="chat-send">Send</button>
+            </div>
+        </div>
+        <!-- If no logged in show login input -->
+        <div id="chat-login-container">
+            <input type="text" 
+                id="chat-username" 
+                placeholder="Enter your username..." 
+                maxlength="20" 
+                onchange="logInOnEnterKey(event)"
+            />
+            <button id="chat-login" onclick="logInToChat()">Login</button>
+        </div>
+    </div>
+</div>

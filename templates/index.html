@@ -60,9 +60,7 @@
         <audio id="fr-audio" preload="none"></audio>
 
         <!-- Chat Box Placeholder -->
-        <div class="chat-placeholder">
-            [Chat box will be added here later]
-        </div>
+        {% include "partials/chat.html" %}
 
         <!-- Donate Section -->
         <div class="donate-section">
@@ -86,6 +84,6 @@
         </div>
     </footer>
     <script src="{% static 'assets/scripts/index.js' %}" defer></script>
-
+    <script src="{% static 'assets/scripts/chat.js' %}" defer></script>
 </body>
 </html>

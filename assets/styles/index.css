@@ -373,18 +373,101 @@ em {
 }
 
 /* === CHAT BOX PLACEHOLDER === */
-.chat-placeholder {
+#chat-container {
+    position: relative;
     width: 100%;
     min-height: 300px;
-    border: 2px dashed #999;
-    border-radius: 8px;
+    border-width: 2px 2px 8px 8px;
+    border-style: solid;
+    border-color: var(--orange);
+}
+
+#chat-login-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    color: #666;
-    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#chat-login-container input#chat-username {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--orange);
+}
+
+#chat-login-container input#chat-username:focus {
+    outline: none;
+    border-color: var(--orange-lighter);
+    box-shadow: 0 0 5px var(--orange-lighter);
+}
+
+#chat-login-container button#chat-login {
+    padding: 10px 20px;
+    background: var(--orange);
+    color: var(--off-white);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#chat-login-container button#chat-login:hover {
+    background: var(--orange-lighter);
+}
+
+#require-login {
+    display: none;
+    min-height: 420px;
+}
+
+#chat-messages {
+}
+
+#chat-input-container {
+    display: flex; /* Hidden until user logs in */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
     background: var(--off-white);
+    border-top: 1px solid var(--orange);
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#chat-input-container input#chat-input {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid var(--orange);
+}
+
+#chat-input-container input#chat-input:focus {
+    outline: none;
+    border-color: var(--orange-lighter);
+    box-shadow: 0 0 5px var(--orange-lighter);
+}
+
+#chat-input-container button#chat-send {
+    padding: 8px 16px;
+    background: var(--orange);
+    color: var(--off-white);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex: 1;
+}
+
+#chat-input-container button#chat-send:hover {
+    background: var(--orange-lighter);
 }
 
 .paypal-donate-form {
