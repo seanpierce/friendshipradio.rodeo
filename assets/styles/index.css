@@ -431,6 +431,21 @@ em {
 #chat-messages {
 }
 
+#chat-details {
+    font-size: 12px;
+    color: #333;
+    padding: 10px;
+    background: var(--orange);
+    color: var(--off-white);
+    display: flex;
+    justify-content: space-between;
+}
+
+#chat-logout {
+    cursor: pointer;
+    font-weight: bold;
+}
+
 #chat-input-container {
     display: flex; /* Hidden until user logs in */
     position: absolute;
