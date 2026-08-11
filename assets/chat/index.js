@@ -1,3 +1,67 @@
+const socket = io("http://localhost:3000");
+
+socket.on("connect", () => {
+    console.log("Connected to chat server:", socket.id);
+});
+
+socket.on("disconnect", () => {
+    console.log("Disconnected from chat server");
+});
+
+socket.on("chat message", (data) => {
+    renderMessage(data)
+});
+
+socket.on("chat history", (messages) => {
+    messages.forEach((data) => {
+        renderMessage(data);
+    });
+});
+
+const renderMessage = (data) => {
+    const messages = document.getElementById("chat-messages");
+
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("chat-message");
+
+    const timestampElement = document.createElement("span");
+    timestampElement.classList.add("chat-message-timestamp");
+    timestampElement.textContent = formatTimestamp(data.timestamp);
+
+    const usernameElement = document.createElement("span");
+    usernameElement.classList.add('chat-message-username');
+    if (userIsMe(data.username))
+        usernameElement.classList.add('me');
+    usernameElement.textContent = data.username;
+
+    const textElement = document.createElement("span");
+    textElement.textContent = `: ${data.message}`;
+
+    messageElement.appendChild(timestampElement);
+    messageElement.appendChild(usernameElement);
+    messageElement.appendChild(textElement);
+
+    messages.appendChild(messageElement);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+const formatTimestamp = (timestamp) => {
+    return new Date(timestamp)
+        .toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        })
+        .replace(' ', '');
+};
+
+const userIsMe = (username) => {
+    const localUsername = localStorage.getItem('username');
+    if (!localUsername) return false;
+    return username.toLowerCase() == localUsername.toLowerCase();
+}
+
 /**
  * Checks if a username is stored in localStorage.
  * If found, logs in the user to the chat with that username.
@@ -11,7 +75,7 @@ const checkLocalStorageUsername = () => {
         const usernameInput = document.getElementById('chat-username');
         usernameInput.addEventListener('keypress', logInOnEnterKey);
 
-        const loginButton = document.getElementById('chat-login-button');
+        const loginButton = document.getElementById('chat-login');
         loginButton.addEventListener('click', () => logInToChat());
     }
 };
@@ -91,19 +155,22 @@ const sendMessage = () => {
     const messageInput = document.getElementById('chat-input');
     const message = messageInput.value.trim();
 
-    if (message) {
-        console.log(`Sending message: ${message}`);
-        // Here you can add code to send the message to the chat server
-
-        // Clear the input field after sending
-        messageInput.value = '';
-    } else {
-        console.log('Please enter a valid message.');
+    if (!message) {
+        return;
     }
+
+    const username = localStorage.getItem('username');
+
+    socket.emit("chat message", {
+        username,
+        message
+    });
+
+    messageInput.value = '';
 };
 
 const logout = () => {
-    localStorage.clear('username');
+    localStorage.removeItem('username');
 
     const requireLogin = document.getElementById('require-login');
     requireLogin.style.display = 'none';
@@ -117,7 +184,7 @@ const logout = () => {
     const usernameInput = document.getElementById('chat-username');
     usernameInput.addEventListener('keypress', logInOnEnterKey);
 
-    const loginButton = document.getElementById('chat-login-button');
+    const loginButton = document.getElementById('chat-login');
     loginButton.addEventListener('click', () => logInToChat());
 }
 

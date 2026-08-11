@@ -1,3 +1,4 @@
+{% load static %}
 <div id="chat-container">
     <div id="chat-content">
         <!-- If logged in show messages and chat box -->
@@ -27,7 +28,10 @@
                 placeholder="Enter your username..." 
                 maxlength="20"
             />
-            <button id="chat-login" onclick="logInToChat()">Login</button>
+            <button id="chat-login">Login</button>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<script src="{% static 'assets/chat/index.js' %}" defer></script>
