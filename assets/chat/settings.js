@@ -17,5 +17,6 @@ export default {
         MESSAGE_INPUT: "chat-input",
         MESSAGE_SEND_BUTTON: "chat-send",
         LOGOUT_BUTTON: "chat-logout",
+        CHAT_MESSAGES_DIV: "chat-messages",
     }
 }

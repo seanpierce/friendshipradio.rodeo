@@ -169,6 +169,12 @@ const sendMessage = () => {
     });
 
     messageInput.value = "";
+
+    const chatMessages = document.getElementById(CHAT_SETTINGS.ELEMENTS.CHAT_MESSAGES_DIV);
+    chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: 'smooth'
+    });
 };
 
 /**
