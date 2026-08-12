@@ -7,9 +7,11 @@ const app = express();
 const server = createServer(app);
 const MAX_MESSAGES = 50;
 
+console.log(process.env.CORS_ALLOWED_ORIGINS)
+
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:8000", "http://127.0.0.1:8000"],
+        origin: process.env.CORS_ALLOWED_ORIGINS.split(','),
         methods: ["GET", "POST"],
     },
 });

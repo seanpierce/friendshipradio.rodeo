@@ -1,5 +1,5 @@
 /**
- * Settings used in the socket.io chat app.
+ * Strings used in the socket.io chat app.
  */
 export default {
     CONNECT: "connect",

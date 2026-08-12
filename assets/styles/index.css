@@ -429,6 +429,8 @@ em {
 }
 
 #chat-messages {
+    overflow-y: scroll;
+    max-height: 325px;
 }
 
 .chat-message {
