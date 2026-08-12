@@ -1,18 +1,20 @@
+import CHAT_SETTINGS from './settings.js';
+
 const socket = io("http://localhost:3000");
 
-socket.on("connect", () => {
+socket.on(CHAT_SETTINGS.CONNECT, () => {
     console.log("Connected to chat server:", socket.id);
 });
 
-socket.on("disconnect", () => {
+socket.on(CHAT_SETTINGS.DISCONNECT, () => {
     console.log("Disconnected from chat server");
 });
 
-socket.on("chat message", (data) => {
-    renderMessage(data)
+socket.on(CHAT_SETTINGS.MESSAGE, (data) => {
+    renderMessage(data);
 });
 
-socket.on("chat history", (messages) => {
+socket.on(CHAT_SETTINGS.HISTORY, (messages) => {
     messages.forEach((data) => {
         renderMessage(data);
     });
@@ -29,9 +31,10 @@ const renderMessage = (data) => {
     timestampElement.textContent = formatTimestamp(data.timestamp);
 
     const usernameElement = document.createElement("span");
-    usernameElement.classList.add('chat-message-username');
-    if (userIsMe(data.username))
-        usernameElement.classList.add('me');
+    usernameElement.classList.add("chat-message-username");
+    if (userIsMe(data.username)) {
+        usernameElement.classList.add("me");
+    }
     usernameElement.textContent = data.username;
 
     const textElement = document.createElement("span");
@@ -44,39 +47,39 @@ const renderMessage = (data) => {
     messages.appendChild(messageElement);
 
     messages.scrollTop = messages.scrollHeight;
-}
-
-const formatTimestamp = (timestamp) => {
-    return new Date(timestamp)
-        .toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        })
-        .replace(' ', '');
 };
 
+const formatTimestamp = (timestamp) =>
+    new Date(timestamp)
+        .toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        })
+        .replace(" ", "");
+
 const userIsMe = (username) => {
-    const localUsername = localStorage.getItem('username');
-    if (!localUsername) return false;
-    return username.toLowerCase() == localUsername.toLowerCase();
-}
+    const localUsername = localStorage.getItem(CHAT_SETTINGS.LOCAL_STORE_KEY);
+    return Boolean(
+        localUsername && username.toLowerCase() === localUsername.toLowerCase(),
+    );
+};
 
 /**
  * Checks if a username is stored in localStorage.
  * If found, logs in the user to the chat with that username.
  */
 const checkLocalStorageUsername = () => {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem(CHAT_SETTINGS.LOCAL_STORE_KEY);
     if (username) {
         console.log(`Username found in localStorage: ${username}`);
         logInToChat(username);
     } else {
-        const usernameInput = document.getElementById('chat-username');
-        usernameInput.addEventListener('keypress', logInOnEnterKey);
+        const usernameInput = document.getElementById(CHAT_SETTINGS.ELEMENTS.USERNAME_INPUT);
+        usernameInput.addEventListener("keypress", logInOnEnterKey);
 
-        const loginButton = document.getElementById('chat-login');
-        loginButton.addEventListener('click', () => logInToChat());
+        const loginButton = document.getElementById(CHAT_SETTINGS.ELEMENTS.LOGIN_BUTTON);
+        loginButton.addEventListener("click", () => logInToChat());
     }
 };
 
@@ -85,8 +88,8 @@ const checkLocalStorageUsername = () => {
  * @param {string} username - The username to save.
  */
 const saveUsername = (username) => {
-    localStorage.setItem('username', username);
-    const chatUsernameDisplay = document.getElementById('chat-username-display');
+    localStorage.setItem(CHAT_SETTINGS.LOCAL_STORE_KEY, username);
+    const chatUsernameDisplay = document.getElementById(CHAT_SETTINGS.ELEMENTS.USERNAME_DISPLAY);
     chatUsernameDisplay.innerText = username;
 };
 
@@ -96,7 +99,7 @@ const saveUsername = (username) => {
  * @param {string|null} username - The username to log in with. If null, retrieves from input field.
  */
 const logInToChat = (username = null) => {
-    const usernameInput = document.getElementById('chat-username');
+    const usernameInput = document.getElementById(CHAT_SETTINGS.ELEMENTS.USERNAME_INPUT);
     const actualUsername = username || usernameInput.value.trim();
 
     if (actualUsername) {
@@ -104,24 +107,23 @@ const logInToChat = (username = null) => {
         console.log(`Logged in as: ${actualUsername}`);
 
         // Show the chat interface or connect to the chat server
-        const requireLogin = document.getElementById('require-login');
-        const chatLogin = document.getElementById('chat-login-container');
-        requireLogin.style.display = 'block';
-        chatLogin.style.display = 'none';
-        usernameInput.value = '';
+        const requireLogin = document.getElementById(CHAT_SETTINGS.ELEMENTS.REQUIRED_LOGIN_DIV);
+        const chatLogin = document.getElementById(CHAT_SETTINGS.ELEMENTS.LOGIN_CONTAINER);
+        requireLogin.style.display = "block";
+        chatLogin.style.display = "none";
+        usernameInput.value = "";
 
         // Attach event listeners
-        const messageInput = document.getElementById('chat-input');
-        messageInput.addEventListener('keypress', sendMessageOnEnterKey);
+        const messageInput = document.getElementById(CHAT_SETTINGS.ELEMENTS.MESSAGE_INPUT);
+        messageInput.addEventListener("keypress", sendMessageOnEnterKey);
 
-        const sendButton = document.getElementById('chat-send');
-        sendButton.addEventListener('click', sendMessage);
+        const sendButton = document.getElementById(CHAT_SETTINGS.ELEMENTS.MESSAGE_SEND_BUTTON);
+        sendButton.addEventListener("click", sendMessage);
 
-        const logoutButton = document.getElementById('chat-logout');
-        logoutButton.addEventListener('click', logout);
-
+        const logoutButton = document.getElementById(CHAT_SETTINGS.ELEMENTS.LOGOUT_BUTTON);
+        logoutButton.addEventListener("click", logout);
     } else {
-        console.log('Please enter a valid username.');
+        console.log("Please enter a valid username.");
     }
 };
 
@@ -131,7 +133,7 @@ const logInToChat = (username = null) => {
  * @param {KeyboardEvent} event - The keyboard event.
  */
 const logInOnEnterKey = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
         logInToChat();
     }
 };
@@ -142,7 +144,7 @@ const logInOnEnterKey = (event) => {
  * @param {KeyboardEvent} event - The keyboard event.
  */
 const sendMessageOnEnterKey = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
         sendMessage();
     }
 };
@@ -152,43 +154,47 @@ const sendMessageOnEnterKey = (event) => {
  * If the message is valid, it logs the message and clears the input field.
  */
 const sendMessage = () => {
-    const messageInput = document.getElementById('chat-input');
+    const messageInput = document.getElementById(CHAT_SETTINGS.ELEMENTS.MESSAGE_INPUT);
     const message = messageInput.value.trim();
 
     if (!message) {
         return;
     }
 
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem(CHAT_SETTINGS.LOCAL_STORE_KEY);
 
     socket.emit("chat message", {
         username,
-        message
+        message,
     });
 
-    messageInput.value = '';
+    messageInput.value = "";
 };
 
+/**
+ * Logs the user out of the chat.
+ * Remove their username fomr localStorage and reset the UI to the "logged-out" state.
+ */
 const logout = () => {
-    localStorage.removeItem('username');
+    localStorage.removeItem(CHAT_SETTINGS.LOCAL_STORE_KEY);
 
-    const requireLogin = document.getElementById('require-login');
-    requireLogin.style.display = 'none';
-    
-    const chatLogin = document.getElementById('chat-login-container');
-    chatLogin.style.display = 'flex';
+    const requireLogin = document.getElementById(CHAT_SETTINGS.ELEMENTS.REQUIRED_LOGIN_DIV);
+    requireLogin.style.display = "none";
 
-    const chatUsernameDisplay = document.getElementById('chat-username-display');
-    chatUsernameDisplay.innerText = '';
+    const chatLogin = document.getElementById(CHAT_SETTINGS.ELEMENTS.LOGIN_CONTAINER);
+    chatLogin.style.display = "flex";
 
-    const usernameInput = document.getElementById('chat-username');
-    usernameInput.addEventListener('keypress', logInOnEnterKey);
+    const chatUsernameDisplay = document.getElementById(CHAT_SETTINGS.ELEMENTS.USERNAME_DISPLAY);
+    chatUsernameDisplay.innerText = "";
 
-    const loginButton = document.getElementById('chat-login');
-    loginButton.addEventListener('click', () => logInToChat());
-}
+    const usernameInput = document.getElementById(CHAT_SETTINGS.ELEMENTS.USERNAME_INPUT);
+    usernameInput.addEventListener("keypress", logInOnEnterKey);
+
+    const loginButton = document.getElementById(CHAT_SETTINGS.ELEMENTS.LOGIN_BUTTON);
+    loginButton.addEventListener("click", () => logInToChat());
+};
 
 // Initialize chat functionality when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     checkLocalStorageUsername();
 });

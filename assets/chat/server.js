@@ -1,46 +1,47 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import CHAT_SETTINGS from './settings.js';
 
 const app = express();
 const server = createServer(app);
+const MAX_MESSAGES = 50;
+
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:8000",
-        methods: ["GET", "POST"]
-    }
+        origin: ["http://localhost:8000", "http://127.0.0.1:8000"],
+        methods: ["GET", "POST"],
+    },
 });
 
 const messages = [];
 
-io.on("connection", (socket) => {
+io.on(CHAT_SETTINGS.CONNECTION, (socket) => {
     console.log("User connected:", socket.id);
 
-        // Send the most recent 50 messages to this newly connected client
-    socket.emit("chat history", messages.slice(-50));
+    socket.emit(CHAT_SETTINGS.HISTORY, messages.slice(-MAX_MESSAGES));
 
-    socket.on("chat message", (data) => {
+    socket.on(CHAT_SETTINGS.MESSAGE, ({ username, message: text }) => {
         const message = {
-            username: data.username,
-            message: data.message,
-            timestamp: new Date().toISOString()
+            username,
+            message: text,
+            timestamp: new Date().toISOString(),
         };
 
         messages.push(message);
 
-        // Optional: prevent this array from growing forever
-        if (messages.length > 50) {
+        if (messages.length > MAX_MESSAGES) {
             messages.shift();
         }
 
-        io.emit("chat message", message);
+        io.emit(CHAT_SETTINGS.MESSAGE, message);
     });
 
-    socket.on("disconnect", () => {
+    socket.on(CHAT_SETTINGS.DISCONNECT, () => {
         console.log("User disconnected:", socket.id);
     });
 });
 
 server.listen(3000, () => {
-    console.log("Chat server running at http://localhost:3000");
+    console.log("Chat server running on port 3000");
 });

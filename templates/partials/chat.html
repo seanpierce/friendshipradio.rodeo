@@ -21,7 +21,7 @@
                 <button id="chat-send">Send</button>
             </div>
         </div>
-        <!-- If no logged in show login input -->
+        <!-- If not logged in show login input -->
         <div id="chat-login-container">
             <input type="text" 
                 id="chat-username" 
@@ -34,4 +34,8 @@
 </div>
 
 <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
-<script src="{% static 'assets/chat/index.js' %}" defer></script>
+<script type="module" 
+    src="{% static 'assets/chat/index.js' %}" 
+    defer
+>
+</script>
