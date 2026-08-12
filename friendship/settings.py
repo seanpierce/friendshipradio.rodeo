@@ -31,6 +31,7 @@ DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
+CHAT_SOCKET_LISTEN_URL = os.getenv('CHAT_SOCKET_LISTEN_URL')
 
 # Application definition
 

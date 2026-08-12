@@ -1,6 +1,12 @@
 import CHAT_SETTINGS from './settings.js';
 
-const socket = io("http://localhost:3000");
+// Get socket url from data attribute (populated via Django template).
+// 1. Get this script (cannot self-reference since this is a module type script).
+const scriptElem = document.querySelectorAll('[data-chat-socket-listen-url]')[0];
+// 2. Extract attribute value.
+const dataUrl = scriptElem.getAttribute('data-chat-socket-listen-url');
+// 3. Create socket.
+const socket = io(dataUrl);
 
 socket.on(CHAT_SETTINGS.CONNECT, () => {
     console.log("Connected to chat server:", socket.id);
@@ -18,8 +24,14 @@ socket.on(CHAT_SETTINGS.HISTORY, (messages) => {
     messages.forEach((data) => {
         renderMessage(data);
     });
+    scrollToBottom();
 });
 
+/**
+ * Creates the HTML markup for a chat message, and appends it to the chat messages element.
+ * 
+ * @param {*} data 
+ */
 const renderMessage = (data) => {
     const messages = document.getElementById("chat-messages");
 
@@ -43,10 +55,7 @@ const renderMessage = (data) => {
     messageElement.appendChild(timestampElement);
     messageElement.appendChild(usernameElement);
     messageElement.appendChild(textElement);
-
     messages.appendChild(messageElement);
-
-    messages.scrollTop = messages.scrollHeight;
 };
 
 const formatTimestamp = (timestamp) =>
@@ -64,6 +73,14 @@ const userIsMe = (username) => {
         localUsername && username.toLowerCase() === localUsername.toLowerCase(),
     );
 };
+
+const scrollToBottom = () => {
+    const chatMessages = document.getElementById(CHAT_SETTINGS.ELEMENTS.CHAT_MESSAGES_DIV);
+    chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: 'smooth'
+    });
+}
 
 /**
  * Checks if a username is stored in localStorage.
@@ -169,12 +186,7 @@ const sendMessage = () => {
     });
 
     messageInput.value = "";
-
-    const chatMessages = document.getElementById(CHAT_SETTINGS.ELEMENTS.CHAT_MESSAGES_DIV);
-    chatMessages.scrollTo({
-        top: chatMessages.scrollHeight,
-        behavior: 'smooth'
-    });
+    scrollToBottom();
 };
 
 /**

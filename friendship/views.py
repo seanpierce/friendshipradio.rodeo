@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from content.models import About, MarqueeText, DonateText
 
@@ -10,5 +11,6 @@ def index(request):
         'about': about.info if about else '',
         'marquee_text': marquee_text.content if marquee_text else '',
         'donate_text': donate_text.content if donate_text else '',
+        'chat_socket_listen_url': settings.CHAT_SOCKET_LISTEN_URL
     }
     return render(request, 'index.html', context)
