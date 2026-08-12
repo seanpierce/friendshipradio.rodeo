@@ -1,11 +1,20 @@
 import express from "express";
+import dotenv from "dotenv";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import CHAT_SETTINGS from './settings.js';
+import { fileURLToPath } from "url";
+import path from "path";
 
 const app = express();
 const server = createServer(app);
 const MAX_MESSAGES = 50;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({
+    path: path.resolve(__dirname, "../../.env")
+});
 
 console.log(process.env.CORS_ALLOWED_ORIGINS)
 
