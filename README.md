@@ -4,10 +4,11 @@ An internet radio station for my good pal and her good pals. This project is mod
 
 ## Technologies and Frameworks
 
-- Django
+- Django, v6.0.8
+- Node, v24.16.0
 - Icecast
 - ezstream
-- Ubuntu hostg server
+- Ubuntu host server, v24 LTS
 - Nginx web server
 - Digital Ocean (cloud provider)
 
@@ -30,3 +31,25 @@ python3 manage.py createsuperuser
 # Run it
 python3 manage.py runserver
 ```
+
+### Socket.io Chat App
+
+This project contains a chat app using socket.io. To build/ serve the app locally, enter the following commands.
+
+```bash
+cd [project root]/assets/chat
+
+# Install the dependencies
+npm i
+
+# Run the server on port 3000
+node ./server.js
+
+# `pm2` will be used to serve the chat app in production.
+```
+
+## Authors
+
+Original site design by Vern Avola.
+
+Server, backend, chat app, streaming and scheduling software by Sean Pierce ([greenroom.technology](https://greenroom.technology))
