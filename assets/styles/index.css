@@ -506,6 +506,11 @@ em {
     background: var(--orange-lighter);
 }
 
+.error {
+    color: red;
+    margin-top: 8px;
+}
+
 .paypal-donate-form {
     display: inline-block;
     margin-top: 20px;

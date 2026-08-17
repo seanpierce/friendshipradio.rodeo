@@ -18,5 +18,11 @@ export default {
         MESSAGE_SEND_BUTTON: "chat-send",
         LOGOUT_BUTTON: "chat-logout",
         CHAT_MESSAGES_DIV: "chat-messages",
+        LOGIN_ERROR_DIV: "login-error"
+    },
+    VALIDATIONS: {
+        USERNAME_TAKEN: "Username already taken",
+        USERNAME_REQUIRED: "Please enter a username",
+        NO_SPECIAL_CHARS: "Username may not contain special characters"
     }
 }
