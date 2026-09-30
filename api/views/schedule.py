@@ -19,6 +19,7 @@ def initiate_show(request):
     Checks for a show that is scheduled to begin at this time. 
     If one exists, recreate the schedule show XMl config file for the "/schedule" icecast mountpoint. 
     """
+
     result = run_pre_recorded_show_scheduler()
 
     if result["started"]:
@@ -34,5 +35,6 @@ def cleanup_pre_recorded_shows(request):
     """
     Deletes pre-recorded show audio files for shows older than one week. This is a maintenance task that is periodically invoked by cron.
     """
+
     result = cleanup_old_pre_recorded_shows()
     return Response(result)
