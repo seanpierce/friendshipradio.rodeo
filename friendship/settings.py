@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
-    'content'
+
+    # Friendship apps
+    'content',
+    'schedule',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +135,5 @@ STATICFILES_DIRS = [
     ('assets', BASE_DIR / 'assets'),
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+SCHEDULE_UPLOAD_ROOT = BASE_DIR / "uploads"

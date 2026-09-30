@@ -4,3 +4,9 @@ venv
 *__pycache__/
 .env
 **/node_modules
+
+# Preserve the uploads folder, but ignore all files in it except for the scheduler subfolder and its contents
+uploads/*
+!uploads/scheduler/
+uploads/scheduler/*
+!uploads/scheduler/.keep
