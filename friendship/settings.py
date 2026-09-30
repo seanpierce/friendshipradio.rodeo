@@ -33,6 +33,8 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOST
 
 CHAT_SOCKET_LISTEN_URL = os.getenv('CHAT_SOCKET_LISTEN_URL')
 
+SCHEDULE_UPLOAD_ROOT = BASE_DIR / "uploads"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,9 +71,9 @@ CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 INTERNAL_API_KEY = os.getenv("INTERNAL_API_KEY")
 
-EZSTREAM_SCHEDULER_DIR = os.path.join(BASE_DIR, "uploads", "scheduler")
-EZSTREAM_HOST = "stream.introtorhythm.com"
-EZSTREAM_PORT = 8000
+EZSTREAM_SCHEDULER_DIR = os.path.join(SCHEDULE_UPLOAD_ROOT, "scheduler")
+EZSTREAM_HOST = "localhost"
+EZSTREAM_PORT = 8001
 EZSTREAM_PASSWORD = os.getenv("EZSTREAM_PASSWORD")
 EZSTREAM_MOUNTPOINT = "/scheduler"
 EZSTREAM_FORMAT = "MP3"
@@ -167,5 +169,3 @@ STATICFILES_DIRS = [
     ('assets', BASE_DIR / 'assets'),
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-SCHEDULE_UPLOAD_ROOT = BASE_DIR / "uploads"
