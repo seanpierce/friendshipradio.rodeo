@@ -42,9 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third-party apps
     'tinymce',
+    'rest_framework',
 
     # Friendship apps
+    'api',
     'content',
     'schedule',
 ]
